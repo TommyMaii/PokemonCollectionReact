@@ -1,0 +1,48 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    padding: 1rem;
+}
+
+.navbar-left .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+}
+
+.navbar-right .nav-links {
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-right .nav-links li {
+    margin-right: 1rem;
+}
+
+.navbar-right .nav-links a {
+    color: #1B263B;
+    text-decoration: none;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+}
+
+
+.navbar-right {
+    color: #1B263B;
+    text-decoration: none;
+    margin-left: 1rem;
+    position: relative;
+}
+
+.LogoIcon{
+    height: 2.5rem;
+    width: 2.5rem;
+}

@@ -1,0 +1,27 @@
+.Login-Container{
+    width: 20%;
+    height: 25%;
+    background: transparent;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    color: #fff;
+    border-radius: 10px;
+    padding: 30px 40px;
+    backdrop-filter: blur(5px);
+}
+
+.Body{
+    height: 100%;
+    width: 100%;
+    background-image: url("../assets/HaunterBackground.jpg");
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.Login-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

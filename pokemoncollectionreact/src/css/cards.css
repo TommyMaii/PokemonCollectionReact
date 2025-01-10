@@ -1,0 +1,11 @@
+#cardBody{
+    display: grid;
+    grid-template-columns: repeat(7, 20px [col-start]);
+    grid-template-rows: repeat(3, 20px [row-start]);
+    grid-column-gap: 250px;
+    grid-row-gap: 380px;
+}
+
+#ItemBody{
+    list-style: none;
+}

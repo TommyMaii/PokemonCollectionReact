@@ -1,0 +1,29 @@
+.Home {
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    background-image: url("../assets/HaunterBackground.jpg");
+}
+
+.MainAdText{
+    padding-left: 3rem;
+    padding-top: 3rem;
+}
+
+.MainAdTextAndImageContainer{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.cardImage{
+    width: 400px;
+    height: 400px;
+}
+
+.footer{
+    position:absolute;
+    left:0;
+    bottom:0;
+    right:0;
+}
