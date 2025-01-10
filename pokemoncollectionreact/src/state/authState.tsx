@@ -1,5 +1,3 @@
-import React, {useContext} from "react"
-
 let authState = "";
 
 export function setAuthState(token:string){

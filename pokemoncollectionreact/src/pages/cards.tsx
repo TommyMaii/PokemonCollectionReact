@@ -3,6 +3,7 @@ import { getAuthState } from "../state/authState"
 import '../css/cards.css'
 import Pagination from "../components/pagination";
 import axios from "axios";
+import {getUserState, setUserState} from "../state/userState";
 
 interface Card {
     id: number;
@@ -11,12 +12,41 @@ interface Card {
     largeCardUrl: string;
 }
 
+async function GetCardCollections()  {
+    try{
+        fetch(`http://localhost:5112/api/PokemonCollection?userId=${getUserState()}`, {
+            method: 'GET',
+            headers: new Headers({
+                Accept: "application/json",
+                Authorization: 'Bearer ' + getAuthState()}),
+        }).then((response) =>  response.text())
+            .then((response) => console.log(response));
+    } catch (error){
+        console.log("Error: " + error);
+    }
+}
+
+async function CreateCardCollection()  {
+    try{
+        fetch(`http://localhost:5112/api/PokemonCollection?userId=${getUserState()}`, {
+            method: 'POST',
+            headers: new Headers({
+                Accept: "application/json",
+                Authorization: 'Bearer ' + getAuthState()}),
+        }).then((response) =>  response.text())
+            .then((response) => console.log(response));
+    } catch (error){
+        console.log("Error: " + error);
+    }
+}
+
 function Cards() {
     const [error, setError] = useState();
     const [cards, setCards] = React.useState<Card[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [cardsPerPage, setcardsPerPage] = useState(14);
-    const [userId, setUserId] = useState<string>();
+    const [tempData, setTempData] = useState<string>();
+
     const handlePagination = (pageNumber:any) => {
 
         setCurrentPage(pageNumber);
@@ -25,24 +55,13 @@ function Cards() {
 
     const AddToCollection = (card:any) => {
         try{
-        axios.post(`http://localhost:5112/api/PokemonCardCollection?collectionId=${userId}&cardId=${card.id}`).then((response) => {
-            console.log(response.data);
-        })}
+        axios.post(`http://localhost:5112/api/PokemonCardCollection?collectionId=1&cardId=${card.cardId}`).then((response) => {
+            console.log(card);
+        })
+            console.log(card.cardId)
+        }
         catch(error){
         }
-    }
-
-    const test = async () => {
-        try{
-            fetch("http://localhost:5112/api/Auth", {
-                method: 'GET',
-                headers: new Headers({Authorization: 'Bearer ' + getAuthState()}),
-            }).then((response) =>  response)
-                .then((data) => console.log(data))
-        } catch (error){
-                console.log("Error: " + error);
-            }
-
     }
 
     useEffect(() => {
@@ -50,7 +69,9 @@ function Cards() {
             try {
                 fetch('http://localhost:5112/api/PokemonCard', {
                     method: 'GET',
-                    headers: new Headers({Authorization: 'Bearer ' + getAuthState()}),
+                    headers: new Headers({
+                        Accept: "application/json",
+                        Authorization: 'Bearer ' + getAuthState()}),
                 })
                     .then((response) => response.json())
                     .then((data) => setCards(data));
@@ -95,10 +116,12 @@ function Cards() {
 
             />
 
-            <button onClick={test}>
-
+            <button onClick={GetCardCollections}>
+                Get Collections
             </button>
-
+            <button onClick={CreateCardCollection}>
+                Create Collection
+            </button>
         </div>
     )
 }

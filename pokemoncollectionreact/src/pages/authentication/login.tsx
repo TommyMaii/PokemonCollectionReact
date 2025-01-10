@@ -3,6 +3,8 @@ import '../../css/login.css'
 import {Link, useNavigate} from "react-router-dom";
 import axios, {AxiosError} from "axios";
 import { useAuth } from "../../state/authContext"
+import { getAuthState } from "../../state/authState";
+import { setUserState } from "../../state/userState";
 
 function getEmail(data:string){
     let removedFirstPartOfData = data.substring(10);
@@ -15,6 +17,21 @@ function getAccessToken(object:any){
     let responseResult = JSON.parse(objectData);
     let key = Object.keys(responseResult)[1];
     return responseResult[key];
+}
+
+async function assignUserId()  {
+    try{
+        fetch("http://localhost:5112/api/Auth", {
+            method: 'GET',
+            headers: new Headers({
+                Accept: "application/json",
+                Authorization: 'Bearer ' + getAuthState()}),
+        }).then((response) =>  response.json())
+            .then((response) => setUserState(response));
+    } catch (error){
+        console.log("Error: " + error);
+    }
+
 }
 
 const LoginForm = () => {
@@ -38,8 +55,8 @@ const LoginForm = () => {
         }
         if(responseCode.status === 200){
             console.log(getEmail(responseCode.config.data));
-            loginUser.loginUser(getAccessToken(responseCode))
-
+            loginUser.loginUser(getAccessToken(responseCode));
+            await assignUserId();
             alert("Log inn suksessfull");
             navigate("/home");}
         }
