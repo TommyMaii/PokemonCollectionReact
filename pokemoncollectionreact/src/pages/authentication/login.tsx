@@ -4,7 +4,7 @@ import {Link, useNavigate} from "react-router-dom";
 import axios, {AxiosError} from "axios";
 import { useAuth } from "../../state/authContext"
 import { getAuthState } from "../../state/authState";
-import { setUserState } from "../../state/userState";
+import { setUserState, getUserState } from "../../state/userState";
 
 function getEmail(data:string){
     let removedFirstPartOfData = data.substring(10);
@@ -21,7 +21,7 @@ function getAccessToken(object:any){
 
 async function assignUserId()  {
     try{
-        fetch("http://localhost:5112/api/Auth", {
+        fetch("http://localhost:5112/api/Auth/GetUserId", {
             method: 'GET',
             headers: new Headers({
                 Accept: "application/json",
@@ -57,6 +57,7 @@ const LoginForm = () => {
             console.log(getEmail(responseCode.config.data));
             loginUser.loginUser(getAccessToken(responseCode));
             await assignUserId();
+            console.log(getUserState())
             alert("Log inn suksessfull");
             navigate("/home");}
         }
